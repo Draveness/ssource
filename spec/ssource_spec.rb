@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'fileutils'
 
 RSpec.describe Ssource do
   it 'has a version number' do
@@ -6,6 +7,8 @@ RSpec.describe Ssource do
   end
 
   it 'does something useful' do
+    fixture = File.absolute_path('../fixtures/test.swift', __FILE__)
+    puts Ssource::SourceKitten.structure fixture
     expect(false).to eq(true)
   end
 end
