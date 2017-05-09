@@ -8,7 +8,8 @@ RSpec.describe Ssource do
 
   it 'does something useful' do
     fixture = File.absolute_path('../fixtures/test.swift', __FILE__)
-    puts Ssource::SourceKitten.structure fixture
-    expect(false).to eq(true)
+    json = Ssource::SourceKitten.structure fixture
+    Ssource::Parser.parse json
+    expect(json).not_to be_nil
   end
 end
