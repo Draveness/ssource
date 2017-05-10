@@ -4,7 +4,7 @@ module Ssource
       attr_reader :typename
       def initialize(json)
         super
-        @typename = json['key.typename']
+        @typename = json['typename']
       end
 
       def to_hash

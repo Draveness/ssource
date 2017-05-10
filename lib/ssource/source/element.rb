@@ -3,11 +3,11 @@ module Ssource
     class Element
       attr_reader :name, :kind, :accessibility, :elements
       def initialize(json)
-        @name = json['key.name']
-        @accessibility = json['key.accessibility']
-        @kind = json['key.kind']
+        @name = json['name']
+        @accessibility = json['accessibility']
+        @kind = json['kind']
 
-        @elements = json.fetch('key.substructure', []).reduce([]) do |arr, structure|
+        @elements = json.fetch('substructure', []).reduce([]) do |arr, structure|
           arr << Factory.build(structure)
         end
       end
