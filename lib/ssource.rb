@@ -5,5 +5,5 @@ module Ssource
   extend ActiveSupport::Autoload
 
   autoload :SourceKitten
-  autoload :Parser
+  autoload :Source
 end

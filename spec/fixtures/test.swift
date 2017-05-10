@@ -1,11 +1,5 @@
-class Token {
-    public let toJSON: Any
-    private(set) var variable: Int
-
+class PlainClass {
     public func method(name: Int) -> Any
-    public class func anotherMethod() -> Int
-    public static func otherMethods()
-}
-
-class Klass {
+    public class func classMethod() -> Int
+    public static func staticMethod()
 }
