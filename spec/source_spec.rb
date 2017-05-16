@@ -12,6 +12,7 @@ RSpec.describe Ssource::Source do
       instance_methods = klass.instance_methods.map(&:name)
       class_methods = klass.class_methods.map(&:name)
       static_methods = klass.static_methods.map(&:name)
+      puts klass.pretty_print
 
       expect(klass).to be_instance_of(Ssource::Source::Klass)
       expect(methods.count).to be(3)
