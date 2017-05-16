@@ -19,6 +19,16 @@ RSpec.describe Ssource::Source do
       expect(class_methods).to match_array('classMethod()')
       expect(static_methods).to match_array('staticMethod()')
     end
+
+    it 'parses superclass' do
+      fixture = Fixture.filepath 'inherited_class.swift'
+      content = Ssource::Source.from fixture
+      klass = content.first
+
+      expect(klass).to be_instance_of(Ssource::Source::Klass)
+      expect(klass.superklass).to eq('Superclass')
+      expect(klass.protocols).to eq(['ExampleProtocol'])
+    end
   end
 
   context 'when parsing methods' do
@@ -41,6 +51,34 @@ RSpec.describe Ssource::Source do
       expect(first_parameter.name).to eq('inInteger')
       expect(second_parameter.name).to eq('float')
       expect(third_parameter.name).to eq('closure')
+    end
+  end
+
+  context 'when parsing extension' do
+    it 'parses extension successfully' do
+      fixture = Fixture.filepath 'extension.swift'
+      content = Ssource::Source.from fixture
+      extension = content.first
+      methods = extension.methods
+      instance_methods = extension.instance_methods.map(&:name)
+      class_methods = extension.class_methods.map(&:name)
+      static_methods = extension.static_methods.map(&:name)
+
+      expect(extension).to be_instance_of(Ssource::Source::Extension)
+      expect(methods.count).to be(3)
+      expect(instance_methods).to match_array('method()')
+      expect(class_methods).to match_array('classMethod()')
+      expect(static_methods).to match_array('staticMethod()')
+    end
+
+    it 'parses superclass' do
+      fixture = Fixture.filepath 'inherited_protocol.swift'
+      content = Ssource::Source.from fixture
+      extension = content.first
+
+      expect(extension).to be_instance_of(Ssource::Source::Extension)
+      expect(extension.superklass).to be_nil
+      expect(extension.protocols).to match_array(['ExampleProtocol', 'AnotherProtocol'])
     end
   end
 end

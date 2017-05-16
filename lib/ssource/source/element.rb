@@ -21,7 +21,7 @@ module Ssource
       end
 
       def pretty_print
-        dispay_name
+        display_name
       end
     end
   end

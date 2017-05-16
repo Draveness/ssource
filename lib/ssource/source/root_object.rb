@@ -3,7 +3,7 @@ require_relative 'klass'
 
 module Ssource
   module Source
-    class Root
+    class RootObject
       extend Forwardable
 
       attr_reader :elements

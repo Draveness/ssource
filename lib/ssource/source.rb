@@ -1,9 +1,9 @@
-require_relative 'source/root'
+require_relative 'source/root_object'
 
 module Ssource
   module Source
     def self.from(file)
-      Root.new(file)
+      RootObject.new(file)
     end
   end
 end
