@@ -6,4 +6,5 @@ module Ssource
 
   autoload :SourceKitten
   autoload :Source
+  autoload :Command
 end
