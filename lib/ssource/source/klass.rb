@@ -1,3 +1,7 @@
+require_relative 'element'
+require_relative 'method'
+require_relative 'variable'
+
 module Ssource
   module Source
     class Klass < Element
@@ -26,21 +30,22 @@ module Ssource
       end
 
       def to_hash
-        hash = super
-        hash['variables'] = variables.map(&:to_hash)
-        hash['instance_methods'] = instance_methods.map(&:to_hash)
-        hash['static_methods'] = static_methods.map(&:to_hash)
-        hash['class_methods'] = class_methods.map(&:to_hash)
-        hash
+        elements_variables.each_with_object(super) do |method, hash|
+          collections = send(method).map(&:to_hash)
+          hash[instance_variable.to_s.capitalize] = collections unless collections.empty?
+        end
       end
 
       def pretty_print
-        hash = {}
-        hash['variables'] = variables.map(&:pretty_print)
-        hash['instance_methods'] = instance_methods.map(&:pretty_print)
-        hash['static_methods'] = static_methods.map(&:pretty_print)
-        hash['class_methods'] = class_methods.map(&:pretty_print)
-        { display_name => hash }
+        result = elements_variables.each_with_object(super) do |method, hash|
+          collections = send(method).map(&:pretty_print)
+          hash[instance_variable.to_s.capitalize] = collections unless collections.empty?
+        end
+        { display_name => result }
+      end
+
+      def elements_variables
+        %i[variables instance_methods static_methods class_methods]
       end
     end
   end

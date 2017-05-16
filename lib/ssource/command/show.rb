@@ -1,3 +1,7 @@
+# coding: utf-8
+
+require 'yaml'
+
 module Ssource
   class Command
     class Show < Command
@@ -9,19 +13,26 @@ module Ssource
       end
 
       def run
-        require 'yaml'
+        @root = Ssource::Source.from file_path
+        puts sections * "\n\n"
+      end
 
-        elements = Ssource::Source.from file_path
-        sections = []
-        elements.map(&:pretty_print).each do |key, value|
-          section = key.green
-          yaml = value.to_yaml
-          yaml.gsub!(/^---$/, '')
-          yaml.gsub!(/^-/, "\n-")
-          yaml.prepend(section)
-          sections << yaml
+      private
+
+      def sections
+        [].tap do |sections|
+          @root.pretty_print.each do |key, value|
+            sections << yamlize(value).prepend(key.green)
+          end
         end
-        puts sections * '\n\n'
+      end
+
+      def yamlize(value)
+        yaml = value.to_yaml
+        yaml.gsub!(/^---$/, '')
+        yaml.gsub!(/^--- \[\]$/, '')
+        yaml.gsub!(/^-/, "\n-")
+        yaml
       end
     end
   end

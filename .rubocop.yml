@@ -3,6 +3,12 @@ Metrics/LineLength:
 
 Style/Documentation:
   Exclude:
+    - '**/*'
     - 'spec/**/*'
     - 'test/**/*'
     - 'lib/ssource.rb'
+
+Metrics/BlockLength:
+  Exclude:
+    - 'spec/**/*'
+    - 'test/**/*'

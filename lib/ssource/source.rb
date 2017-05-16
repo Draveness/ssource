@@ -1,15 +1,9 @@
-require 'json'
-require_relative 'source/element'
-require_relative 'source/klass'
-require_relative 'source/method'
-require_relative 'source/variable'
-require_relative 'source/factory'
+require_relative 'source/root'
 
 module Ssource
   module Source
     def self.from(file)
-      elements = Ssource::SourceKitten.structure file
-      elements.map { |element| Factory.build element }
+      Root.new(file)
     end
   end
 end

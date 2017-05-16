@@ -23,12 +23,12 @@ module Ssource
 
       def to_hash
         hash = super
-        hash[:parameters] = parameters.map(&:to_hash)
+        hash[:parameters] = parameters.map(&:to_hash) unless parameters.empty?
         hash
       end
 
       def pretty_print
-        { display_name => parameters.map(&:display_name) }
+        display_name
       end
     end
   end

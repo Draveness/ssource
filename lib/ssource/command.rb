@@ -14,9 +14,7 @@ module Ssource
       super
     end
 
-    def file_path
-      @file_path
-    end
+    attr_reader :file_path
 
     def file_path=(path)
       @file_path = path && Pathname.new(path).expand_path
